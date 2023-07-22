@@ -1,0 +1,30 @@
+version: '3'
+services:
+  api-gateway:
+    build:
+      context: ./api-gateway
+    ports:
+      - 3000:3000
+    env_file:
+      - ./api-gateway/.env
+    environment:
+      - REPORT_SERVICE_HOSTNAME=report-generation-service
+      - REPORT_SERVICE_PORT=3001
+    depends_on:
+      - report-generation-service
+
+  report-generation-service:
+    build:
+      context: ./report-generation-service
+    ports:
+      - 3001:3001
+    env_file:
+      - ./report-generation-service/.env
+
+  report-view:
+    build:
+      context: ./report-view
+    ports:
+      - 5001:5001
+    env_file:
+      - ./report-view/.env
