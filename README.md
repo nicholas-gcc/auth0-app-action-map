@@ -83,7 +83,7 @@ You can now access the system at `localhost:5001`. You can click the `Login` but
 
 - It also checks if the user is assigned a `Manager` role. If so, the report will display all information, including triggers. Below is an example of a user with the `Manager` role.
   
-![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/8223bd33-e3e4-4110-99e5-a77216e8b91b)
+![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/c2ff9088-edf2-4d11-8587-d5238e8e7e54)
 
 - Otherwise if the logged in user does not have the `Manager` role, the triggers will not be displayed as shown below:
 
