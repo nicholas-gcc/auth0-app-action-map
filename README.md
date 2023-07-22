@@ -73,7 +73,9 @@ npm start
 You can now access the system at `localhost:5001`. You can click the `Login` button and log in with your Auth0 credentials associated with the desired tenant to generate the report.
 
 ## Application Flow
-- The React frontend integrates with an Auth0 provider, enabling users to log in with Auth0's predefined login boxes.
+- The React frontend integrates with an Auth0 provider, enabling users to log in with Auth0's predefined login boxes (shown below)
+![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/5a1be863-461d-4ae6-a072-0b935af88618)
+
   
 - Upon successful login, Auth0 generates a bearer token for the session which is then sent to the `api-gateway` and the `report-generation-service`. Both of these services have authentication middlewares with the intended audience being the `Report Generation Service API`, but you may choose to define different authentication logic at the `api-gateway` and the `report-generation-service` levels separately according to your business rules and logic
 
@@ -81,11 +83,12 @@ You can now access the system at `localhost:5001`. You can click the `Login` but
 
 - It also checks if the user is assigned a `Manager` role. If so, the report will display all information, including triggers. Below is an example of a user with the `Manager` role.
   
-![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/d9ad326c-88c2-465a-bb1e-c1cf0b1ef6ac)
+![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/8223bd33-e3e4-4110-99e5-a77216e8b91b)
 
 - Otherwise if the logged in user does not have the `Manager` role, the triggers will not be displayed as shown below:
 
-![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/0bfa461b-c740-4a5b-95bf-9cc4736a2071)
+![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/7254e815-32dd-4215-914e-b3469d460e8c)
+
 
 
 
