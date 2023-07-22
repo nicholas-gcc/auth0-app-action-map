@@ -9,8 +9,8 @@ require('dotenv').config();
  */
 exports.getAllActions = async function(req, res) {
   try {
-    // Get all actions from the API
-    const response = await axios.get(`${process.env.MANAGEMENT_API_DOMAIN}actions/actions`, {
+    // Get all clients from the API
+    const clientsResponse = await axios.get(`${process.env.MANAGEMENT_API_DOMAIN}clients`, {
       headers: {
         Authorization: `Bearer ${req.access_token}`
       }
@@ -19,8 +19,21 @@ exports.getAllActions = async function(req, res) {
     // Map to hold the mapping of client application names to action details
     const clientAppToActionMap = {};
 
+    // Loop through all clients
+    clientsResponse.data.forEach(client => {
+      // Initialize each client with an empty actions array
+      clientAppToActionMap[client.name] = { actions: [] };
+    });
+
+    // Get all actions from the API
+    const actionsResponse = await axios.get(`${process.env.MANAGEMENT_API_DOMAIN}actions/actions`, {
+      headers: {
+        Authorization: `Bearer ${req.access_token}`
+      }
+    });
+
     // Loop through all actions
-    response.data.actions.forEach(action => {
+    actionsResponse.data.actions.forEach(action => {
       // If code field is not defined, skip this iteration
       if (!action.code) {
         return;
@@ -32,11 +45,6 @@ exports.getAllActions = async function(req, res) {
       // If the regex matched, then extract the client application name
       if (match && match[1]) {
         const clientAppName = match[1];
-
-        // If the client application name is not yet a key in the map, then create an empty array
-        if (!clientAppToActionMap[clientAppName]) {
-          clientAppToActionMap[clientAppName] = { actions: [] };
-        }
 
         // Add the action details to the array associated with the client application name
         clientAppToActionMap[clientAppName].actions.push({

@@ -91,8 +91,14 @@ const Profile = () => {
                     {Object.entries(reportData).map(([appName, data]) => (
                         <div key={appName}>
                         <h3>{appName}</h3>
-                        <p>Actions</p>
-                        {data.actions.map((action, i) => <Action key={i} action={action} />)}
+                        {data.actions.length > 0 ? (
+                            <div>
+                            <p>Actions</p>
+                            {data.actions.map((action, i) => <Action key={i} action={action} />)}
+                            </div>
+                        ) : (
+                            <p>No actions to show</p>
+                        )}
                         </div>
                     ))}
                     </div>
@@ -105,6 +111,7 @@ const Profile = () => {
         </div>
         )
     );
+    
 };
 
 export default Profile;
