@@ -87,7 +87,7 @@ You can now access the system at `localhost:5001`. You can click the `Login` but
 
 - Otherwise if the logged in user does not have the `Manager` role, the triggers will not be displayed as shown below:
 
-![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/7254e815-32dd-4215-914e-b3469d460e8c)
+![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/6c43ab1e-3d23-4200-b5f0-5863a55b07e4)
 
 
 
