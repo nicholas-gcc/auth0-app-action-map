@@ -34,11 +34,11 @@ async function checkRole(req, res, next) {
 
         // Check if the user has the Manager role
         const roles = response.data;
-        const hasManagerRole = roles.some(role => role.name === 'Manager');
+        const hasManagerRole = roles.some(role => role.id === process.env.AUTH0_MANAGER_ROLE_ID);
 
         // If the user doesn't have the Manager role, set req.hideTriggers to true
         if (!hasManagerRole) {
-        req.hideTriggers = true;
+            req.hideTriggers = true;
         }
 
         // Continue to the next middleware

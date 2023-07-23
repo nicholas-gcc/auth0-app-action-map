@@ -1,7 +1,7 @@
 /**
  * Note: This authentication middleware is similar to the middleware on the API gateway
  * You can customise this middleware to include more granular permissions or apply
- * additional bsuiness logic.
+ * additional business logic.
  */
 
 const jwt = require('jsonwebtoken');

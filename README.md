@@ -24,11 +24,13 @@ This project provides a solution to dynamically generate and view a report of al
 ### Prerequisites
 - Auth0 account and tenant configured
   
-- On Auth0 Dashboard > Applications, configure a `Regular Web Application` for the `report-generation-service`. It is not necessary to set any Callback URLs or Allowed Web Origins
+- On `Auth0 Dashboard > Applications`, configure a `Regular Web Application` for the `report-generation-service`. It is not necessary to set any Callback URLs or Allowed Web Origins
   
-- On Auth0 Dashboard > Applications, configure a `Single Page Application` for the `report-view-spa`. Set `Allowed Web Origins` and `Allowed Callback URLs` to `localhost:5001` or any port number you choose
+- On `Auth0 Dashboard > Applications`, configure a `Single Page Application` for the `report-view-spa`. Set `Allowed Web Origins` and `Allowed Callback URLs` to `localhost:5001` or any port number you choose
   
-- On Auth0 Dashboard > APIs, configure a `Custom API` for the `Report Generation Service API`, setting your own unique URL identifier and the Signing Algorithm to `RS256`. Also verify that the `Auth0 Management API` is present on the APIs page.
+- On `Auth0 Dashboard > APIs`, configure a `Custom API` for the `Report Generation Service API`, setting your own unique URL identifier and the Signing Algorithm to `RS256`. Also verify that the `Auth0 Management API` is present on the APIs page.
+
+- On `Auth0 Dashboard > User Management > Roles`, configure a `Manager` role
 
 - Have [npm](https://www.npmjs.com) and [Node.js](https://nodejs.dev/en/) on your machine
   
