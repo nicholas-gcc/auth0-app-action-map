@@ -83,7 +83,7 @@ You can now access the system at `localhost:5001`. You can click the `Login` but
   
 - Upon successful login, Auth0 generates a bearer token for the session which is then sent to the `api-gateway` and the `report-generation-service`. Both of these services have authentication middlewares with the intended audience being the `Report Generation Service API`, but you may choose to define different authentication logic at the `api-gateway` (e.g. Coarse Permissions) and the `report-generation-service` levels (e.g. Fine-Grained Permissions) separately according to your business rules and logic
 
-- After successful authentication, the `report-generation-service` uses the `Management API` to generate a Management API token. This token is used to retrieve information about client applications, actions, and flows.
+- After successful authentication, the `report-generation-service` uses the `Management API` to generate a Management API token. This token is used to retrieve information about client applications, actions, and flows. In particular, this application uses the `Management API`'s `/api/v2/clients` and `/api/v2/actions/actions` endpoints to generate the action-client mappings, and the `/api/v2/users/{userId}/roles` to verify the permissions assigned to the user.
 
 - It also checks if the user is assigned a `Manager` role. If so, the report will display all information, including triggers. Below is an example of a user with the `Manager` role.
 
