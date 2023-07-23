@@ -76,21 +76,48 @@ You can now access the system at `localhost:5001`. You can click the `Login` but
 
 ## Application Flow
 - The React frontend integrates with an Auth0 provider, enabling users to log in with Auth0's predefined login boxes (shown below)
+
+
 ![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/5a1be863-461d-4ae6-a072-0b935af88618)
 
   
-- Upon successful login, Auth0 generates a bearer token for the session which is then sent to the `api-gateway` and the `report-generation-service`. Both of these services have authentication middlewares with the intended audience being the `Report Generation Service API`, but you may choose to define different authentication logic at the `api-gateway` and the `report-generation-service` levels separately according to your business rules and logic
+- Upon successful login, Auth0 generates a bearer token for the session which is then sent to the `api-gateway` and the `report-generation-service`. Both of these services have authentication middlewares with the intended audience being the `Report Generation Service API`, but you may choose to define different authentication logic at the `api-gateway` (e.g. Coarse Permissions) and the `report-generation-service` levels (e.g. Fine-Grained Permissions) separately according to your business rules and logic
 
 - After successful authentication, the `report-generation-service` uses the `Management API` to generate a Management API token. This token is used to retrieve information about client applications, actions, and flows.
 
 - It also checks if the user is assigned a `Manager` role. If so, the report will display all information, including triggers. Below is an example of a user with the `Manager` role.
+
   
 ![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/c2ff9088-edf2-4d11-8587-d5238e8e7e54)
 
 - Otherwise if the logged in user does not have the `Manager` role, the triggers will not be displayed as shown below:
 
+
 ![image](https://github.com/nicholas-gcc/auth0-app-action-map/assets/69677864/6c43ab1e-3d23-4200-b5f0-5863a55b07e4)
 
+## Possible Feature Extensions
+
+This application is structured with potential extension of microservice APIs in mind, regardless of tech stack. Adding new services and integrations can be made possible by defining a new API separate from the `report_generation_service`, proxying these new services through the `api-gateway`, configuring a `Dockerfile` and modifying `docker-compose.yml` to cater for different service infrastructure. This enables the extension of the application while also maintaining Separation of Concerns.
+
+- **Action Usage Statistics**: This would provide a statistical breakdown of how often each Action is executed. It could be helpful for management to optimize resources by identifying underutilized Actions. You can possibly do this by accessing logs through the Management API using the `/api/v2/logs` endpoint and defining a separate API service for this.
+  
+- **Integration with Other Services**: Depending on the specific needs of your company or your customers, you could add features to integrate Auth0 with other services. For instance, you could connect it with Slack or email to send notifications about critical events or updates, such as new mappings between Actions and client applications, utilising webhooks between this app and the service you are looking to integrate
+  
+- **Advanced Search**: Improve the search functionality in the application. Allow users to search for Actions based on different criteria, such as trigger type, name, date created, and more. This could greatly simplify the process of finding the right Actions. This can be achieved by provisioning a database or in-memory data structures, populating them with your tenant data and retrieving relevant results based on user inputs and use built-in search/query methods on the programming language of your choice
+
+- **Rate Limiting**: In the `api-gateway`, you can introduce rate limiting to prevent abuse and to protect your backend services. Rate limiting can be IP-based, or user-based if the user is authenticated at the API gateway.
+
+- **Conditional Access Policies**: In the `report_generation_service`, you can implement conditional access policies that take into account the user's location, device, IP address, etc. For example, requests from unfamiliar locations or devices might trigger additional security measures.
+
+## Deployment Considerations and Alternatives
+
+While Docker provides a flexible and robust solution for deploying the `auth0-app-action-map` project, it may be worth considering AWS Lambda as a potential alternative, depending on your specific use case:
+
+- **Scalability**: If the `auth0-app-action-map` is expected to be used infrequently or irregularly (such as an administrative tool used for periodic audits or reports), AWS Lambda's pay-per-use model could provide cost benefits. You would only be billed for the actual compute time consumed by each function invocation, instead of paying for server uptime on Docker
+
+- **Ease of Management**: AWS Lambda abstracts away infrastructure management, allowing you to focus solely on code. This might simplify operations if your team doesn't have extensive DevOps expertise or if you prefer to minimize operational overhead.
+
+- **Integration with AWS Ecosystem**: If your infrastructure is heavily AWS-based, AWS Lambda integrates seamlessly with other AWS services for a smooth, end-to-end development and deployment experience.
 
 
 
